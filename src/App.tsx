@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import "react-toastify/dist/ReactToastify.css";
  
 import UserList from './Components/User/UserList';
-import { users } from './data/data';
+import  users  from './data/user.json';
 import Heading from './Components/UI/Heading';
 import { ToastContainer } from 'react-toastify';
 
 const App: React.FC = () => {
   return (
-    <div >
+   <Suspense fallback={<div>Loading...</div>}>
+     <div >
       <Heading title="Users List"   />
       <UserList users={users} />
       <ToastContainer
@@ -23,6 +24,7 @@ const App: React.FC = () => {
         theme="light"
       />
     </div>
+    </Suspense>
   );
 };
 

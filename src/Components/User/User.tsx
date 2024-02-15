@@ -1,6 +1,6 @@
 import React from "react";
-import { interests } from "../../data/data";
-import { AiOutlineDelete } from "react-icons/ai";
+import interests from "../../data/interests.json";
+import { AiFillDelete, AiOutlineUserDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 interface UserProps {
@@ -38,15 +38,15 @@ const User: React.FC<UserProps> = ({
   const handleRemoveInterest = (interestId: number) => {
     onRemoveInterest(user.id, interestId);
     toast.success(
-      <div className="text-center flex text-nowrap p-4">
+      <div className="text-center flex text-nowrap p-2">
         User Interest Deleted successfully
       </div>
     );
   };
 
   return (
-    <div className=" flex  h-64 flex-col relative gap-4 border-[3px] border-cyan-600 rounded-lg shadow-lg">
-      <div className="flex justify-between p-4 items-center  bg-slate-300">
+    <div className=" flex  min-h-64 flex-col relative gap-4 border-[3px] border-cyan-600 rounded-lg shadow-lg">
+      <div className="flex justify-between p-4 items-center  bg-[#00B5BC] text-white">
         <div className="text-2xl"> {user.name}</div>
         <p>{`  has ${user.following.length} followers`}</p>
       </div>
@@ -54,13 +54,16 @@ const User: React.FC<UserProps> = ({
         <div className="text-2xl font-[700]">Interests:</div>
         {user.interests && user.interests.length > 0 ? (
           <div className="px-8">
-            <ul>
+            <ul className="flex flex-col  gap-1">
               {getUserInterests(user.interests).map((interest, index) => (
-                <li key={index} className="text-lg font-[500] flex items-center">
-                  {index + 1} - {interest}
-                  <AiOutlineDelete
+                <li
+                  key={index}
+                  className="text-lg font-[500] flex  px-4 justify-between items-center bg-[#d2dce5] w-[50%] rounded-xl"
+                >
+                  {interest}
+                  <AiFillDelete
                     onClick={() => handleRemoveInterest(user.interests![index])}
-                    className="ml-2 text-red-500 cursor-pointer"
+                    className="ml-2 text-red-800 cursor-pointer"
                   />
                 </li>
               ))}
@@ -72,9 +75,13 @@ const User: React.FC<UserProps> = ({
       </div>
       <button
         onClick={handleDeleteUser}
-        className="w-full absolute bottom-0 bg-red-800 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        className="w-full flex items-center justify-center absolute bottom-0 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
       >
         Delete User
+        <AiOutlineUserDelete
+          size={24}
+          className="ml-2 text-red-100 cursor-pointer"
+        />
       </button>
     </div>
   );
