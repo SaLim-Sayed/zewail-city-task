@@ -6,16 +6,18 @@ import  users  from './data/user.json';
 import Heading from './Components/UI/Heading';
 import { ToastContainer } from 'react-toastify';
 import Navbar from "./Components/Layouts/Navbar";
+import Footer from "./Components/Layouts/Footer";
 
 const App: React.FC = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div>
-        <Navbar  />
-        <div className="mt-24">
+        <Navbar />
+        <div className="mt-28 mb-16">
           <Heading title="Users List" />
           <UserList users={users} />
         </div>
+        <Footer />
         <ToastContainer
           position={"bottom-right"}
           autoClose={5000}
