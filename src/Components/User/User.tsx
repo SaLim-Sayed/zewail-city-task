@@ -58,7 +58,7 @@ const User: React.FC<UserProps> = ({
               {getUserInterests(user.interests).map((interest, index) => (
                 <li
                   key={index}
-                  className="text-lg font-[500] flex  px-4 justify-between items-center bg-[#d2dce5] w-[50%] rounded-xl"
+                  className="text-lg font-[500] flex  px-4 justify-between items-center bg-[#d2dce5] w-[60%] rounded-xl"
                 >
                   {interest}
                   <AiFillDelete
