@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import User from "./User"; 
+import { useUserStore } from "../../Store/userStore";
 
 interface UserListProps {
   users: {
@@ -11,6 +12,7 @@ interface UserListProps {
 }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
+  const {setCount}=useUserStore()
   const [usersList, setUsersList] = useState(users);
 
   // useEffect to sort usersList whenever users prop changes
@@ -18,10 +20,12 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     // Sort usersList based on follower count
     const sortedUsersList = usersList.slice().sort((a, b) => b.following.length - a.following.length);
     setUsersList(sortedUsersList);
-  }, [users]); // Trigger useEffect when users prop changes
+    setCount(usersList.length)
+  }, [usersList]); // Trigger useEffect when users prop changes
 
   const handleDeleteUser = (userId: number) => {
     setUsersList(usersList.filter((user) => user.id !== userId));
+    setCount(usersList.length)
   };
 
   const handleRemoveInterest = (userId: number, interestId: number) => {
