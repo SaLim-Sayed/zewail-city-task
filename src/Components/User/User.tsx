@@ -38,14 +38,14 @@ const User: React.FC<UserProps> = ({
   const handleRemoveInterest = (interestId: number) => {
     onRemoveInterest(user.id, interestId);
     toast.success(
-      <div className="text-center flex text-nowrap p-2">
+      <div className="text-center flex text-nowrap">
         User Interest Deleted successfully
       </div>
     );
   };
 
   return (
-    <div className=" flex  min-h-64 flex-col relative gap-4 border-[3px] border-cyan-600 rounded-lg shadow-lg">
+    <div className=" flex  min-h-64 flex-col relative gap-4 border-[3px] border-cyan-500 rounded-lg shadow-2xl">
       <div className="flex justify-between p-4 items-center  bg-[#00B5BC] text-white">
         <div className="text-2xl"> {user.name}</div>
         <p>{`  has ${user.following.length} followers`}</p>
@@ -73,14 +73,15 @@ const User: React.FC<UserProps> = ({
           <p className="text-lg font-[500] text-center">No Interests</p>
         )}
       </div>
+
       <button
         onClick={handleDeleteUser}
-        className="w-full flex items-center justify-center absolute bottom-0 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        className=" absolute -top-4 -right-2 bg-red-100 text-red-900 rounded-xl h-8 w-28  flex items-center justify-center gap-1"
       >
-        Delete User
+        Delete{" "}
         <AiOutlineUserDelete
           size={24}
-          className="ml-2 text-red-100 cursor-pointer"
+          className="   text-red-900 cursor-pointer"
         />
       </button>
     </div>

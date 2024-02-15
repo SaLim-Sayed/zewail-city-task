@@ -8,11 +8,15 @@ export default function Heading({ title, subTitle }: HeadingProps) {
     <div className="w-[94%] lg:w-[90%] 2xl:w-[80%] mx-auto">
       <div
         className={cn(
-          "flex text-center  w-full mt-[60px] mb-[24px] leading-[35px] flex-col  justify-center items-center"
+          "flex text-center  w-full mt-[60px] mb-[40px] leading-[35px] flex-col  justify-center items-center"
         )}
       >
         {title && (
-          <div className={cn("md:text-[64px] text-[40px] font-[800] text-cyan-800 ")}>
+          <div
+            className={cn(
+              "md:text-[64px] text-[40px] font-[800] text-cyan-800 "
+            )}
+          >
             {title}
           </div>
         )}
