@@ -13,7 +13,7 @@ const App: React.FC = () => {
     <Suspense fallback={<div>Loading...</div>}>
       <div>
         <Navbar />
-        <div className="mt-28 mb-16">
+        <div className="mt-28 mb-16 min-h-[63vh]">
           <Heading title="Users List" />
           <UserList users={users} />
         </div>
