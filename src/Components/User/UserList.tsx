@@ -19,7 +19,6 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
   const followersCountArr: any = {};
 
-
   usersList.forEach((user) => {
     let followersCount = 0;
     usersList.forEach((item) => {
@@ -37,10 +36,10 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     // Sort usersList based on follower count
     const sortedUsersList = usersList
       .slice()
-      .sort((a, b) => b.following.length - a.following.length);
+      .sort((a, b) => (b.noOfFollowers || 0) - (a.noOfFollowers || 0));
     setUsersList(sortedUsersList);
     setCount(usersList.length);
-  }, [setCount, usersList]);  
+  }, [setCount, usersList]);
 
   const handleDeleteUser = (userId: number) => {
     // Filter out the deleted user from the usersList
