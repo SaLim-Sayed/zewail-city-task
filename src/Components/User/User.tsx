@@ -9,6 +9,7 @@ interface UserProps {
     name: string;
     following: number[];
     interests?: number[];
+    noOfFollowers?: number;
   };
   onDeleteUser: (userId: number) => void;
   onRemoveInterest: (userId: number, interestId: number) => void;
@@ -46,9 +47,11 @@ const User: React.FC<UserProps> = ({
 
   return (
     <div className=" flex  min-h-64 flex-col relative gap-4 border-[3px] border-cyan-500 rounded-lg shadow-2xl">
-      <div className="flex justify-between p-4 items-center  bg-[#00B5BC] text-white">
+      <div className="flex justify-between p-4 items-center  gap-2 bg-[#00B5BC] text-white">
         <div className="text-2xl"> {user.name}</div>
-        <p>{`  has ${user.following.length} followers`}</p>
+        <p className="text-slate-200">{`  has ${
+          user.noOfFollowers != 0 ? user?.noOfFollowers : "no "
+        } followers`}</p>
       </div>
       <div className="flex flex-col  px-4 ">
         <div className="text-2xl font-[700]">Interests:</div>

@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
-import User from "./User"; 
+import User from "./User";
 import { useUserStore } from "../../Store/userStore";
 
 interface UserListProps {
@@ -8,26 +9,49 @@ interface UserListProps {
     name: string;
     following: number[];
     interests?: number[];
+    noOfFollowers?: any;
   }[];
 }
 
 const UserList: React.FC<UserListProps> = ({ users }) => {
-  const {setCount}=useUserStore()
+  const { setCount } = useUserStore();
   const [usersList, setUsersList] = useState(users);
+
+  const followersCountArr: any = {};
+
+
+  usersList.forEach((user) => {
+    let followersCount = 0;
+    usersList.forEach((item) => {
+      if (item.following && item.following.includes(user.id)) {
+        followersCount++;
+      }
+    });
+
+    followersCountArr[user.id] = followersCount;
+    user.noOfFollowers = followersCount;
+  });
 
   // useEffect to sort usersList whenever users prop changes
   useEffect(() => {
     // Sort usersList based on follower count
-    const sortedUsersList = usersList.slice().sort((a, b) => b.following.length - a.following.length);
+    const sortedUsersList = usersList
+      .slice()
+      .sort((a, b) => b.following.length - a.following.length);
     setUsersList(sortedUsersList);
-    setCount(usersList.length)
-  }, [usersList]); // Trigger useEffect when users prop changes
+    setCount(usersList.length);
+  }, [setCount, usersList]);  
 
   const handleDeleteUser = (userId: number) => {
-    setUsersList(usersList.filter((user) => user.id !== userId));
-    setCount(usersList.length)
-  };
+    // Filter out the deleted user from the usersList
 
+    const updatedUsersList = usersList.filter((user) => user.id !== userId);
+
+    // Update the state with the updated usersList
+    setUsersList(updatedUsersList);
+    // Update the count
+    setCount(updatedUsersList.length);
+  };
   const handleRemoveInterest = (userId: number, interestId: number) => {
     const updatedUsersList = usersList.map((user) => {
       if (user.id === userId) {
@@ -38,7 +62,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
           ),
         };
       }
-      
+
       return user;
     });
     setUsersList(updatedUsersList);
@@ -46,7 +70,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
   return (
     <div className="w-[90%] mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4 gap-y-8">
         {usersList.map((user) => (
           <User
             key={user.id}
